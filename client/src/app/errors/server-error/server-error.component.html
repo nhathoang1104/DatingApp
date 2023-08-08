@@ -1,0 +1,15 @@
+<h4>Internal server error</h4>
+<ng-container *ngIf="error">
+    <h5 class="text-danger">Error: {{error.message}}</h5>
+     <p class="font-weight-bold">Note: If you are seeing this then Angular probaly not to blame</p>
+     <p>What to do next</p>
+     <ol>
+        <li>Open the Chrome dev tools</li>
+        <li>Inspect the netword tab</li>
+        <li>Check the failing requets</li>
+        <li>Examine the requets URL - make sure it is correct</li>
+        <li>Vl</li>
+     </ol>
+     <p>Following is the track trace - this is where your investigation should start!</p>
+     <code  style="background-color: whitesmoke;margin-top: 20px;">{{error.details}}</code>
+    </ng-container>

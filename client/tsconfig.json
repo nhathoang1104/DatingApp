@@ -7,7 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false, // truoc dau la true nhung bai cuoi chuong 7 da sua
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
