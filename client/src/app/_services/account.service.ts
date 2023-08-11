@@ -9,7 +9,7 @@ import { User } from '../_models/user';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl=' https://localhost:5001/api/'; // khi de la https thi mot vai loi khi dang nhap se khong hien thi ma chi hien thi la OK thoi
+  baseUrl=' http://localhost:5000/api/'; // khi de la https thi mot vai loi khi dang nhap se khong hien thi ma chi hien thi la OK thoi
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
