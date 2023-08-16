@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl=' http://localhost:5000/api/'; // khi de la https thi mot vai loi khi dang nhap se khong hien thi ma chi hien thi la OK thoi
+  baseUrl=environment.apiUrl; // khi de la https thi mot vai loi khi dang nhap se khong hien thi ma chi hien thi la OK thoi
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
