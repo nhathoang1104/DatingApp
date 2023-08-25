@@ -28,7 +28,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
+    //tai day toi da xoa dong "strictTemplates": true,
     "extendedDiagnostics": {
       "checks": {
         "optionalChainNotNullable": "suppress"

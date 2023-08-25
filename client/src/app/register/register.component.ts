@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,20 +12,46 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements OnInit{
 
   @Output() cancelRegister = new EventEmitter();
-  model: any = {};
-  constructor(private accountService: AccountService, private toastr: ToastrService){}
+  registerForm!:FormGroup;
+  maxDate!: Date;
+  validationErrors: string[] =[];
+
+  constructor(private accountService: AccountService, private toastr: ToastrService,
+    private fb: FormBuilder,private router: Router){}
 
   ngOnInit(): void {
+    this.intitializeForm();
+    this.maxDate=new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+  }
+  intitializeForm(){
+    this.registerForm= this.fb.group({
+      gender: ['male'],
+      knownAs: ['', Validators.required],
+      username: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      password: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(8)]],
+      confirmPassword: ['', [Validators.required, this.matchValues('password')]]
+    })
   }
 
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const parentFormGroup = control?.parent as FormGroup;
+      const matchingControl = parentFormGroup?.controls[matchTo] as AbstractControl; 
+      return control?.value === matchingControl?.value ? null : { isMatching: true };
+    };
+  }
+  
+
   register(){
-    this.accountService.Register(this.model).subscribe(response =>{
-      console.log(response);
-      this.cancel();
-    }, error =>{
-      console.log(error);
-      this.toastr.error(error.error)
-    })
+     this.accountService.Register(this.registerForm.value).subscribe(response =>{
+       this.router.navigateByUrl('/members');
+     }, error =>{
+       this.validationErrors=error;
+     })
   }
 
   cancel(){
